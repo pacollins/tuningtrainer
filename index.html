@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width" name="viewport">
+
+  <title>Tuning Trainer</title><!-- UIkit CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/css/uikit.min.css" rel="stylesheet">
+</head>
+
+<body>
+	<main class="uk-container" uk-margin uk-height-viewport="expand: true">
+	  <h1 class="uk-text-center">Tuning Trainer</h1>
+    <h2 id="attempts" class="uk-text-center">0/0</h2>
+    
+	  <div uk-margin>
+	    <div>
+	      <label class="uk-form-label" for="difficulty-level">Difficulty Level</label> <select class="uk-select" id="difficulty-level" name="difficulty-level">
+	        <option value="beginning">Beginning (25-50 Cents)</option>
+	        <option value="intermediate">Intermediate (15-25 Cents)</option>
+	        <option value="mastery">Mastery (5-15 Cents)</option>
+	      </select>
+	    </div>
+
+	    <div class="uk-child-width-expand@m" uk-margin>
+	      <button class="uk-button uk-button-default" onclick="newExercise()">New</button>
+				<button class="uk-button uk-button-default" disabled onclick="playExercise()">Repeat</button>
+				<button class="uk-button uk-button-default" disabled onclick="showAnswer()">Answer</button>
+	    </div>
+	  </div>
+
+	  <div class="uk-child-width-expand@m" uk-margin>
+    <button class="uk-button uk-button-danger" disabled onclick="showAnswer(1)">Sharp</button>
+  	<button class="uk-button uk-button-secondary" disabled onclick="showAnswer(0)">Same</button>
+    <button class="uk-button uk-button-primary" disabled onclick="showAnswer(-1)">Flat</button>
+	  </div>
+
+		<div class="uk-width-expand">
+		  <h4 id="result"></h4>
+		  <p id="answer"></p>
+		</div>
+	</main>
+	<footer class="uk-light uk-background-secondary uk-padding uk-text-center">
+    <p>Built with <a href="https://getuikit.com/">UI Kit</a> and Web Audio API.<br>
+      &copy; 2020<script>new Date().getFullYear()>2020&&document.write("-"+new Date().getFullYear());</script>, <a href="https://www.pacollins.com/">Patrick Collins</a>.</p>
+      <a href="https://twitter.com/pacollinsmusic" class="uk-icon-button uk-margin-small-right" uk-icon="twitter"></a>
+      <a href="https://github.com/pacollins/" class="uk-icon-button  uk-margin-small-right" uk-icon="github"></a>
+	</footer>
+  <!-- UIkit JS -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/js/uikit-icons.min.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>
