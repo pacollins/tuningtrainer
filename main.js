@@ -58,6 +58,7 @@ request.onload = function() {
 request.send();
 
 function newExercise() {
+    if (audioCtx.state === "suspended") {audioCtx.resume();}
     var buttons = document.getElementsByTagName("button");
     if (buttons[1].disabled = true) {
     for(var i = 0; i < buttons.length; i++) {
