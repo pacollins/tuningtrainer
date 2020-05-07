@@ -1,4 +1,4 @@
-var audioCtx, gainNode, source, buffer, inProgress, note, adjustment;
+var audioCtx, source, buffer, inProgress, note, adjustment;
 var count = 0;
 var attempt = 0;
 var difficulty = {
@@ -7,14 +7,14 @@ var difficulty = {
   'mastery': {'min': 5, 'max': 15}
 };
 var notes = [
-    ['Eb4', -612], ['E4', -512],
-    ['F4', -412],
-    ['Gb4', -312], ['G4', -212],
-    ['Ab4', -112], ['A4', -12],
-    ['Bb4', 88], ['B4', 188],
-    ['C5', 288],
-    ['Db5', 388], ['D5', 488],
-    ['Eb5', 588]
+    ['B3', -600],
+    ['C4', -500], ['C#/Db4', -400],
+    ['D4', -300], ['D#/Eb4', -200],
+    ['E4', -100],
+    ['F4', 0], ['F#/Gb4', 100],
+    ['G4', 200], ['G#/Ab4', 300],
+    ['A4', 400], ['A#/Bb4', 500],
+    ['B4', 600]
 ];
 
 window.onload = function load() {
@@ -29,10 +29,9 @@ function startApp() {
 function startAudio() {
   var AudioContext = window.AudioContext || window.webkitAudioContext;
   audioCtx = new AudioContext();
-  gainNode = audioCtx.createGain();
   source = audioCtx.createBufferSource();
   var request = new XMLHttpRequest();
-  request.open('GET', 'piano_A.mp3', true);
+  request.open('GET', 'piano-F4.mp3', true);
   request.responseType = 'arraybuffer';
   request.onload = function() {
     audioCtx.decodeAudioData(request.response, (decoded) => {
@@ -74,23 +73,17 @@ function playExercise() {
   source.buffer = buffer;
   try {source.detune.value = notes[note][1];}
   catch(err) {alert("Your browswer is not compatible with the function that allows the application to detune notes.");return false;}
-  gainNode.gain.value = 1;
-  gainNode.gain.setTargetAtTime(0, audioCtx.currentTime + 0.7, 0.3);
-  gainNode.connect(audioCtx.destination);
-  source.connect(gainNode);
-  source.start(0, 0.4);
+  source.connect(audioCtx.destination);
+  source.start(0);
   inProgress = true;
-  source.stop(audioCtx.currentTime + 1.1);
+  source.stop(audioCtx.currentTime + 2);
   // Adjusted Pitch
   source = audioCtx.createBufferSource();
   source.buffer = buffer;
   source.detune.value = notes[note][1] + adjustment;
-  gainNode.gain.setValueAtTime(1, audioCtx.currentTime + 1.9);
-  gainNode.gain.setTargetAtTime(0, audioCtx.currentTime + 2.6, 0.3);
-  gainNode.connect(audioCtx.destination);
-  source.connect(gainNode);
-  source.start(audioCtx.currentTime + 1.9, 0.4);
-  source.stop(audioCtx.currentTime + 3);
+  source.connect(audioCtx.destination);
+  source.start(audioCtx.currentTime + 1.5);
+  source.stop(audioCtx.currentTime + 4);
   setTimeout(function() {
     inProgress = false;
   }, 3000);
