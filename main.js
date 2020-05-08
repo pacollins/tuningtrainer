@@ -71,8 +71,7 @@ function playExercise() {
   source = audioCtx.createBufferSource();
   // Reference Pitch
   source.buffer = buffer;
-  try {source.detune.value = notes[note][1];}
-  catch(err) {alert("Your browswer is not compatible with the function that allows the application to detune notes.");return false;}
+  source.playbackRate.value = 2**(notes[note][1] / 1200);
   source.connect(audioCtx.destination);
   source.start(0);
   inProgress = true;
@@ -80,13 +79,13 @@ function playExercise() {
   // Adjusted Pitch
   source = audioCtx.createBufferSource();
   source.buffer = buffer;
-  source.detune.value = notes[note][1] + adjustment;
+  source.playbackRate.value = 2**((notes[note][1] + adjustment) / 1200);
   source.connect(audioCtx.destination);
   source.start(audioCtx.currentTime + 1.5);
   source.stop(audioCtx.currentTime + 4);
   setTimeout(function() {
     inProgress = false;
-  }, 3000);
+  }, 2500);
 }
 
 function showAnswer(answer) {
